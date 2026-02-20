@@ -1,10 +1,23 @@
-# Go
-/bin
+# Go build artifacts
 /app
+/bin
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# IDE
-.idea
-.vscode
+# Go test cache
+*.test
+*.out
 
-# OS
+# IDE / Editors
+.vscode/
+.idea/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
