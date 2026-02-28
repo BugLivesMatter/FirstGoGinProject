@@ -39,9 +39,8 @@ func main() {
 		})
 	})
 
-	// Новый маршрут для подсчёта дней до произвольной даты 
+	// Новый маршрут для подсчёта дней до произвольной даты
 	r.GET("/countdown", countdownHandler)
-	
 
 	// Запускаем HTTP-сервер на порту 4200
 	// Сервер будет слушать все интерфейсы (0.0.0.0:4200)
@@ -50,36 +49,38 @@ func main() {
 
 // Handler for GET /countdown?date=YYYY-MM-DD
 func countdownHandler(c *gin.Context) {
-    // Получаем query-параметр
-    targetDateStr := c.Query("date")
-    
-    // Проверяем, передан ли параметр
-    if targetDateStr == "" {
-        c.JSON(http.StatusBadRequest, gin.H{
-            "error": "Missing required query parameter: date",
-        })
-        return
-    }
-    
-    // Парсим дату в формате YYYY-MM-DD
-    targetDate, err := time.Parse("2006-01-02", targetDateStr)
-    if err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{
-            "error": "Invalid date format. Use YYYY-MM-DD",
-        })
-        return
-    }
-    
-    // Получаем текущую дату (без времени)
-    now := time.Now()
-    today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
-    
-    // Считаем разницу в днях
-    daysRemaining := int(targetDate.Sub(today).Hours() / 24)
-    
-    // Возвращаем успешный ответ
-    c.JSON(http.StatusOK, gin.H{
-        "target_date":    targetDateStr,
-        "days_remaining": daysRemaining,
-    })
+	// Получаем query-параметр
+	targetDateStr := c.Query("date")
+
+	// Проверяем, передан ли параметр
+	if targetDateStr == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Missing required query parameter: date",
+		})
+		return
+	}
+
+	// Парсим дату в формате YYYY-MM-DD
+	targetDate, err := time.Parse("2006-01-02", targetDateStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid date format. Use YYYY-MM-DD",
+		})
+		return
+	}
+
+	// Получаем текущую дату (без времени)
+	now := time.Now()
+	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+
+	// Считаем разницу в днях
+	daysRemaining := int(targetDate.Sub(today).Hours() / 24)
+
+	// Возвращаем успешный ответ
+	c.JSON(http.StatusOK, gin.H{
+		"target_date":    targetDateStr,
+		"days_remaining": daysRemaining,
+	})
 }
+
+//edit
